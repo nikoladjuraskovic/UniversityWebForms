@@ -1,0 +1,30 @@
+﻿
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+
+.container {
+    width: 80%;
+    margin: auto;
+    overflow: hidden;
+}
+
+.greska {
+    color: red;
+    font-size: 20pt;
+    margin-top: 25px;
+    margin-bottom: 25px;
+    font-weight: bold;
+    
+}
+
+form#insertForm{
+    width: 30%;
+}
+
+#tabela{
+    width: 30%;
+}
