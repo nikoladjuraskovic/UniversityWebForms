@@ -17,7 +17,9 @@ namespace WebControlsBase
             podaci se salju serveru i stranica se ponovo ucitava, samim tim
             se uvek ponovo poziva metod Page_Load. Tj. naredni kod se ponovo izvrsava
             zbog postback-a kada se opet ucita stranica.*/
-            
+            try
+            {
+
                 int Answer;
 
                 // Due to a timing issue with when page validation occurs, call the
@@ -37,18 +39,26 @@ namespace WebControlsBase
 
                     //ako je neki item izabran
                     if (DropDownList2.SelectedItem != null)
-                        {
+                    {
                         //ispis izbor u label
-                            Label2.Text = DropDownList2.SelectedItem.Value;
+                        Label2.Text = DropDownList2.SelectedItem.Value;
 
-                            Label2.ForeColor = System.Drawing.Color.Green;
-                        }
+                        Label2.ForeColor = System.Drawing.Color.Green;
+                    }
                     else
-                        {
-                            Label2.Text = "Nothing Selected";
-                        }
+                    {
+                        Label2.Text = "Nothing Selected";
+                    }
 
                 }
+
+            } catch(Exception ex)
+            {
+                ErrorLabel.Text = "SERVER ERROR";
+                ErrorLabel.ForeColor = System.Drawing.Color.Red;
+                System.Diagnostics.Debug.WriteLine("Exception Message " + ex.Message);
+                System.Diagnostics.Debug.WriteLine("Stack Trace " + ex.StackTrace);
+            }
             
         }
 

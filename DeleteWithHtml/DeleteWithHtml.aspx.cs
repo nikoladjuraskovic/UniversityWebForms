@@ -49,6 +49,8 @@ namespace WebControlsBase.DeleteWithHtml
 
                     } catch(Exception ex)
                 {
+                    ErrorLabel.Text = "SERVER ERROR";
+                    ErrorLabel.ForeColor = System.Drawing.Color.Red;
                     System.Diagnostics.Debug.WriteLine(ex.Message);
                     System.Diagnostics.Debug.WriteLine(ex.StackTrace);
                 }

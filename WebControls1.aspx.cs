@@ -25,25 +25,38 @@ namespace WebControlsBase
 
         protected void GridView6_RowDataBound(object sender, GridViewRowEventArgs e)
         {
-            //iteracija kroz sve redove kontrola
-            for(int i = 0; i < GridView6.Rows.Count; i++)
+            try
             {
-                GridViewRow row = GridView6.Rows[i]; // dohvatam jedan red
-                string grade;
-                float floatGrade;
-                
-                grade = row.Cells[1].Text; //citam vrednosti celije u obliku stringa
-                //System.Diagnostics.Debug.WriteLine("GridText[" + i + "]: " + grade);
-                floatGrade = float.Parse(grade); //cast-ujem u float radi ispitvanja
-                if (floatGrade < 2) // ako je ocena manja od 2
+
+
+                //iteracija kroz sve redove kontrola
+                for (int i = 0; i < GridView6.Rows.Count; i++)
                 {
-                     row.BackColor = System.Drawing.Color.Red; // oboji red u crveno
+                    GridViewRow row = GridView6.Rows[i]; // dohvatam jedan red
+                    string grade;
+                    float floatGrade;
+
+                    grade = row.Cells[1].Text; //citam vrednosti celije u obliku stringa
+                                               //System.Diagnostics.Debug.WriteLine("GridText[" + i + "]: " + grade);
+                    floatGrade = float.Parse(grade); //cast-ujem u float radi ispitvanja
+                    if (floatGrade < 2) // ako je ocena manja od 2
+                    {
+                        row.BackColor = System.Drawing.Color.Red; // oboji red u crveno
+                    }
+                    else
+                    {
+                        row.BackColor = System.Drawing.Color.Green; // inace u zeleno
+                    }
+
                 }
-                else
-                {
-                     row.BackColor = System.Drawing.Color.Green; // inace u zeleno
-                }
-                                           
+
+            } catch(Exception ex)
+            {
+                ErrorLabel.Text = "SERVER ERROR";
+                ErrorLabel.ForeColor = System.Drawing.Color.Red;
+                System.Diagnostics.Debug.WriteLine("Exception Message " + ex.Message);
+                System.Diagnostics.Debug.WriteLine("Stack Trace " + ex.StackTrace);
+
             }
 
 

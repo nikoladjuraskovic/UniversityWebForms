@@ -32,6 +32,8 @@
             
             --%>
 
+        <asp:Label ID="ErrorLabel" runat="server" Text="" Font-Bold="true"></asp:Label>
+
         <h2>Insert Student</h2>
 
         <%--

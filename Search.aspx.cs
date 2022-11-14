@@ -37,6 +37,8 @@ namespace WebControlsBase
                 }
                 catch (Exception e2)
                 {
+                    ErrorLabel.Text = "SERVER ERROR";
+                    ErrorLabel.ForeColor = System.Drawing.Color.Red;
                     System.Diagnostics.Debug.WriteLine("Exception Message " + e2.Message);
                     System.Diagnostics.Debug.WriteLine("Stack Trace " + e2.StackTrace);
                 }
@@ -69,6 +71,8 @@ namespace WebControlsBase
 
             } catch(Exception ex)
             {
+                ErrorLabel.Text = "SERVER ERROR";
+                ErrorLabel.ForeColor = System.Drawing.Color.Red;
                 System.Diagnostics.Debug.WriteLine("Exception Message " + ex.Message);
                 System.Diagnostics.Debug.WriteLine("Stack Trace " + ex.StackTrace);
             }

@@ -39,7 +39,7 @@
         da rade oba nacin samo zakomentarisite metode u backend-u i njihove pozive i
         dodajte datasourceid="ime sql data source  tag-a"
         --%>
-        
+     <asp:Label ID="ErrorLabel" runat="server" Text="" Font-Bold="true"></asp:Label>   
 
     <div>
 

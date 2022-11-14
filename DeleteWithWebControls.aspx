@@ -15,6 +15,9 @@
     <br />
 
     <h3>Delete with ASP Web Controls</h3>
+
+    <asp:Label ID="ErrorLabel" runat="server" Text="" Font-Bold="true" ></asp:Label>
+
     <!--stranica brise studenta iz baze preko Gridiew-->
 
     <asp:sqldatasource id="GridView1Source"

@@ -19,6 +19,8 @@
     <h2>Edit with ASP Web Controls</h2>
     <!--Stranica menja postojeceg studenta u bazi i vrsi ispis u GridView-->
 
+    <asp:Label ID="ErrorLabel" runat="server" Text="" Font-Bold="true"></asp:Label>
+
     <asp:sqldatasource id="GridView1Source"
         selectcommand="SELECT StudentID, LastName, FirstName, Year FROM Students"
         connectionstring="Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=University;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False" 

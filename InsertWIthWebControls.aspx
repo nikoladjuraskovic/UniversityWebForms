@@ -40,6 +40,9 @@
         Oprez! Ako uvezete bootstrap putem linka narusicete layout sajta
         jer on vec u sebi ima neku bootstrap biblioteku!
         -->
+
+    <asp:Label ID="ErrorLabel" runat="server" Text="" Font-Bold="true"></asp:Label>
+
     <h3>Insert Student</h3>
 
     <asp:Panel ID="Panel1" runat="server" CssClass="form-group">

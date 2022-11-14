@@ -27,6 +27,9 @@
         <a href="../Default.aspx">Home Page</a>
 
 
+        <asp:Label ID="ErrorLabel" runat="server" Text="" Font-Bold="true"></asp:Label>
+
+
         <h3>Students to Delete</h3>
 
 

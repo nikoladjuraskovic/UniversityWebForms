@@ -24,64 +24,75 @@ namespace WebControlsBase
              jer je mozda prethodno opet kliknuto dugme i ispravljena
             greska pa da se vise ne crvene textbox-ovi.*/
 
-            TextBoxFirstName.CssClass = "form-control";
-            TextBoxLastName.CssClass = "form-control";
-            TextBoxYear.CssClass = "form-control";
-
-            if (Page.IsValid) //ako je stranica validna, tj sve provere svih validatora su prosle
+            try
             {
-                lblOutput.ForeColor = System.Drawing.Color.DarkGreen;
-                lblOutput.Text = "Page Valid!";
 
-                string connectionString = GetConnectionString();
+                TextBoxFirstName.CssClass = "form-control";
+                TextBoxLastName.CssClass = "form-control";
+                TextBoxYear.CssClass = "form-control";
 
-                SqlConnection con = new SqlConnection(connectionString);
+                if (Page.IsValid) //ako je stranica validna, tj sve provere svih validatora su prosle
+                {
+                    lblOutput.ForeColor = System.Drawing.Color.DarkGreen;
+                    lblOutput.Text = "Page Valid!";
 
-                //dohvatam podatke iz TextBox-a
-                string lastName = TextBoxFirstName.Text.Trim();
-                string firstName = TextBoxLastName.Text.Trim();
-                int year = int.Parse(TextBoxYear.Text);
+                    string connectionString = GetConnectionString();
 
-                InsertStudent(con, lastName, firstName, year);
+                    SqlConnection con = new SqlConnection(connectionString);
 
-                /*redirektujemo se(prebacujemo) na istu stranicu
-                 * tj. kao da je automatski refresh-ujemo
-                da bismo videli u tabeli novog ubacenog studenta.
-                Ponovnim ucitavanjem stranice takodje vracamo css klase
-                TextBox-ova na prvobitne tj. da se ne crvene vise ako jesu prethodno.
-                Metod Redirect ima 2 argmenta, prvi je stranica na koju idemo,
-                a drugi je bool endResponse koji govori da li treba ili
-                ne prekinuti izvrsavanje trenutne stranice. Stavljamo uvek
-                false da ne bismo dobili Exception:
-                System.Threading.ThreadAbortException' in mscorlib.dll
-                */
+                    //dohvatam podatke iz TextBox-a
+                    string lastName = TextBoxFirstName.Text.Trim();
+                    string firstName = TextBoxLastName.Text.Trim();
+                    int year = int.Parse(TextBoxYear.Text);
 
-                Response.Redirect("~/InsertWIthWebControls", false);
+                    InsertStudent(con, lastName, firstName, year);
+
+                    /*redirektujemo se(prebacujemo) na istu stranicu
+                     * tj. kao da je automatski refresh-ujemo
+                    da bismo videli u tabeli novog ubacenog studenta.
+                    Ponovnim ucitavanjem stranice takodje vracamo css klase
+                    TextBox-ova na prvobitne tj. da se ne crvene vise ako jesu prethodno.
+                    Metod Redirect ima 2 argmenta, prvi je stranica na koju idemo,
+                    a drugi je bool endResponse koji govori da li treba ili
+                    ne prekinuti izvrsavanje trenutne stranice. Stavljamo uvek
+                    false da ne bismo dobili Exception:
+                    System.Threading.ThreadAbortException' in mscorlib.dll
+                    */
+
+                    Response.Redirect("~/InsertWIthWebControls", false);
+                }
+                else //inace ako se desio neki problem pri validaciji
+                {
+                    /*
+                     hocemo da se svaki text box zacrveni ako unos u njega
+                    nije dobar. Koristimo += da bi na vec postojece CSS klase
+                    dodali one koje crvene TextBox.
+                    Provera moze biti preko toga da li je validator odgovarajuceg textbox-a
+                    validan ili preko ispitivanja vrednosti u TextBox-u tj. da li je
+                    nesto uneto u njega. Lakse je i brze preko validatora nego
+                    da rucno ispistujemo unos u TextBox-u, pogotovo za prezime i ime
+                     */
+
+
+                    if (RequiredFieldValidator1.IsValid == false || RegularExpressionValidator1.IsValid == false)
+                        TextBoxFirstName.CssClass += " alert-danger textbox-warning";
+                    if (RequiredFieldValidator2.IsValid == false || RegularExpressionValidator2.IsValid == false)
+                        TextBoxLastName.CssClass += " alert-danger textbox-warning";
+                    if (TextBoxYear.Text.Trim().Equals("") || (TextBoxYear.Text.Trim() != "1" && TextBoxYear.Text.Trim() != "2") && TextBoxYear.Text.Trim() != "3" && TextBoxYear.Text.Trim() != "4")
+                        TextBoxYear.CssClass += " alert-danger textbox-warning";
+
+                    lblOutput.ForeColor = System.Drawing.Color.Red;
+                    lblOutput.Text = "Page Invalid!";
+
+                }
+
+            } catch(Exception ex)
+            {
+                ErrorLabel.Text = "SERVER ERROR";
+                ErrorLabel.ForeColor = System.Drawing.Color.Red;
+                System.Diagnostics.Debug.WriteLine("Exception Message: " + ex.Message);
+                System.Diagnostics.Debug.WriteLine("Stack Trace: " + ex.StackTrace);
             }
-            else //inace ako se desio neki problem pri validaciji
-            {
-                /*
-                 hocemo da se svaki text box zacrveni ako unos u njega
-                nije dobar. Koristimo += da bi na vec postojece CSS klase
-                dodali one koje crvene TextBox.
-                Provera moze biti preko toga da li je validator odgovarajuceg textbox-a
-                validan ili preko ispitivanja vrednosti u TextBox-u tj. da li je
-                nesto uneto u njega. Lakse je i brze preko validatora nego
-                da rucno ispistujemo unos u TextBox-u, pogotovo za prezime i ime
-                 */
-                
-
-                if (RequiredFieldValidator1.IsValid == false || RegularExpressionValidator1.IsValid == false)         
-                    TextBoxFirstName.CssClass += " alert-danger textbox-warning";
-                if (RequiredFieldValidator2.IsValid == false || RegularExpressionValidator2.IsValid == false)
-                    TextBoxLastName.CssClass += " alert-danger textbox-warning";
-                if(TextBoxYear.Text.Trim().Equals("") || (TextBoxYear.Text.Trim() != "1" && TextBoxYear.Text.Trim() != "2") && TextBoxYear.Text.Trim() != "3" && TextBoxYear.Text.Trim() != "4")
-                    TextBoxYear.CssClass += " alert-danger textbox-warning";
-
-                lblOutput.ForeColor = System.Drawing.Color.Red;
-                lblOutput.Text = "Page Invalid!";
-               
-             }
         }
 
         string GetConnectionString()
@@ -140,6 +151,8 @@ namespace WebControlsBase
 
             } catch(Exception e)
             {
+                ErrorLabel.Text = "SERVER ERROR";
+                ErrorLabel.ForeColor = System.Drawing.Color.Red;
                 System.Diagnostics.Debug.WriteLine("Exception Message: " + e.Message);
                 System.Diagnostics.Debug.WriteLine("Stack Trace: " + e.StackTrace);
             }

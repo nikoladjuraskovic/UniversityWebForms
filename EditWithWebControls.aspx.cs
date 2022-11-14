@@ -98,39 +98,48 @@ namespace WebControlsBase
             TextBoxYear.CssClass = "form-control";
 
 
-
-
-            if (Page.IsValid)
+            try
             {
 
-                string connectionString = GetConnectionString();
+                if (Page.IsValid)
+                {
 
-                SqlConnection con = new SqlConnection(connectionString);
+                    string connectionString = GetConnectionString();
 
-                int id = int.Parse(TextBoxId.Text);
-                string lastName = TextBoxLastName.Text.Trim();
-                string firstName = TextBoxFirstName.Text.Trim();
-                int year = int.Parse(TextBoxYear.Text);
+                    SqlConnection con = new SqlConnection(connectionString);
 
-                UpdateStudentParameter(con, year, id, lastName, firstName);
+                    int id = int.Parse(TextBoxId.Text);
+                    string lastName = TextBoxLastName.Text.Trim();
+                    string firstName = TextBoxFirstName.Text.Trim();
+                    int year = int.Parse(TextBoxYear.Text);
+
+                    UpdateStudentParameter(con, year, id, lastName, firstName);
 
 
-                /*Objasnjenje u InsertWithWebControls*/
-                Response.Redirect("~/EditWithWebControls", false);
+                    /*Objasnjenje u InsertWithWebControls*/
+                    Response.Redirect("~/EditWithWebControls", false);
 
-            }
-            else
+                }
+                else
+                {
+
+                    if (RequiredFieldValidator1.IsValid == false || RegularExpressionValidator1.IsValid == false)
+                        TextBoxLastName.CssClass += " alert-danger textbox-warning";
+                    if (RequiredFieldValidator2.IsValid == false || RegularExpressionValidator2.IsValid == false)
+                        TextBoxFirstName.CssClass += " alert-danger textbox-warning";
+                    // if (TextBoxYear.Text.Trim().Equals("") || (TextBoxYear.Text.Trim() != "1" && TextBoxYear.Text.Trim() != "2") && TextBoxYear.Text.Trim() != "3" && TextBoxYear.Text.Trim() != "4") // I nacin
+                    if (RequiredFieldValidator3.IsValid == false || RangeValidator1.IsValid == false) //II nacin
+                        TextBoxYear.CssClass += " alert-danger textbox-warning";
+
+
+                }
+
+            } catch(Exception ex)
             {
-
-                if (RequiredFieldValidator1.IsValid == false || RegularExpressionValidator1.IsValid == false)
-                    TextBoxLastName.CssClass += " alert-danger textbox-warning";
-                if (RequiredFieldValidator2.IsValid == false || RegularExpressionValidator2.IsValid == false)
-                    TextBoxFirstName.CssClass += " alert-danger textbox-warning";
-                // if (TextBoxYear.Text.Trim().Equals("") || (TextBoxYear.Text.Trim() != "1" && TextBoxYear.Text.Trim() != "2") && TextBoxYear.Text.Trim() != "3" && TextBoxYear.Text.Trim() != "4") // I nacin
-                if (RequiredFieldValidator3.IsValid == false || RangeValidator1.IsValid == false) //II nacin
-                    TextBoxYear.CssClass += " alert-danger textbox-warning";
-
-
+                ErrorLabel.Text = "SERVER ERROR";
+                ErrorLabel.ForeColor = System.Drawing.Color.Red;               
+                System.Diagnostics.Debug.WriteLine("Exception Message: " + ex.Message);
+                System.Diagnostics.Debug.WriteLine("Stack Trace: " + ex.StackTrace);
             }
         }
 
@@ -198,6 +207,8 @@ namespace WebControlsBase
 
             } catch(Exception e)
             {
+                ErrorLabel.Text = "SERVER ERROR";
+                ErrorLabel.ForeColor = System.Drawing.Color.Red;
                 System.Diagnostics.Debug.WriteLine("Exception Message: " + e.Message);
                 System.Diagnostics.Debug.WriteLine("Stack Trace: " + e.StackTrace);
             }

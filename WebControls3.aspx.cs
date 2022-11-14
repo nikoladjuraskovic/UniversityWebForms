@@ -74,21 +74,32 @@ namespace WebControlsBase
             using (con)
             {
 
-                con.Open(); // otvaram ovde konekciju i zatvoricu je nakon poziva svih metoda
-
-                if (IsPostBack == false) //if(!IsPostBack)
+                try
                 {
-                    /*Objasnjenje IsPostBack-a je na stranicama 
-                     AutoPostBack i AutoPostBackBase*/
 
-                    //ako nije koriscen property AutoPostBack
-                    PopulateListBoxWithList();
+                    con.Open(); // otvaram ovde konekciju i zatvoricu je nakon poziva svih metoda
 
-                    PopulateListBoxWithBase(con);
+                    if (IsPostBack == false) //if(!IsPostBack)
+                    {
+                        /*Objasnjenje IsPostBack-a je na stranicama 
+                         AutoPostBack i AutoPostBackBase*/
 
-                    PopulateDropDownListWithList();
+                        //ako nije koriscen property AutoPostBack
+                        PopulateListBoxWithList();
 
-                    PopulateDropDownListWithBase(con);
+                        PopulateListBoxWithBase(con);
+
+                        PopulateDropDownListWithList();
+
+                        PopulateDropDownListWithBase(con);
+                    }
+
+                } catch(Exception ex)
+                {
+                    ErrorLabel.Text = "SERVER ERROR";
+                    ErrorLabel.ForeColor = System.Drawing.Color.Red;
+                    System.Diagnostics.Debug.WriteLine("Exception Message " + ex.Message);
+                    System.Diagnostics.Debug.WriteLine("Stack Trace " + ex.StackTrace);
                 }
 
             }
@@ -145,10 +156,7 @@ namespace WebControlsBase
                 SqlCommand cmd = new SqlCommand(query, con);
 
             //izvor podataka listbox-a je DataReader
-
-            try
-            {
-
+           
                 SqlDataReader reader = cmd.ExecuteReader();
 
                 ListBox3.DataSource = reader;
@@ -161,11 +169,7 @@ namespace WebControlsBase
 
                 reader.Close(); // zatvaramo reader jer ce nam trebati i u drugim metodama
 
-            } catch(Exception e)
-            {
-                System.Diagnostics.Debug.WriteLine("Exception Message " + e.Message);
-                System.Diagnostics.Debug.WriteLine("Stack Trace " + e.StackTrace);
-            }
+            
         }
 
         void PopulateDropDownListWithList()
@@ -194,10 +198,7 @@ namespace WebControlsBase
                 SqlCommand cmd = new SqlCommand(query, con);
 
             //izvor podataka listbox-a je DataReader
-
-
-            try
-            {
+           
                 SqlDataReader reader = cmd.ExecuteReader();
 
                 DropDownList3.DataSource = reader;
@@ -207,15 +208,9 @@ namespace WebControlsBase
 
                 //vezi podatke za ListBox
                 DropDownList3.DataBind();
-
-                
-
+               
                 reader.Close();
-            } catch(Exception e)
-            {
-                System.Diagnostics.Debug.WriteLine("Exception Message " + e.Message);
-                System.Diagnostics.Debug.WriteLine("Stack Trace " + e.StackTrace);
-            }
+            
         }
 
         

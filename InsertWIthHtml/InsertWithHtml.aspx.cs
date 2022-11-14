@@ -98,6 +98,8 @@ namespace WebControlsBase.InsertWIthHtml
                 }
                 catch (Exception ex)
                 {
+                    ErrorLabel.Text = "SERVER ERROR";
+                    ErrorLabel.ForeColor = System.Drawing.Color.Red;
                     System.Diagnostics.Debug.WriteLine("Exception Message " + ex.Message);
                     System.Diagnostics.Debug.WriteLine("Stack Trace " + ex.StackTrace);
                 }

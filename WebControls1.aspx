@@ -39,7 +39,7 @@
         koja se provodi u div kada stize do klijenta.
         --%>
 
-    <asp:Label ID="Label1" runat="server" Text=""></asp:Label>
+    <asp:Label ID="ErrorLabel" runat="server" Text="" Font-Bold="true"></asp:Label>
 
 
     <div>

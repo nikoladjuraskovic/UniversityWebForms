@@ -32,7 +32,7 @@ Dokumentacija: https://docs.microsoft.com/en-us/dotnet/api/system.web.ui.webcont
         i onda tim podacima popunili neke druge kontrole(npr. Label, TextBox, ...)
         Primer: https://learn.microsoft.com/en-us/dotnet/api/system.web.ui.webcontrols.listcontrol.autopostback?view=netframework-4.8#system-web-ui-webcontrols-listcontrol-autopostback
         -->
-
+    <asp:Label ID="ErrorLabel" runat="server" Text="" Font-Bold="true"></asp:Label>
 
     <h3> TextBox Example </h3>
 

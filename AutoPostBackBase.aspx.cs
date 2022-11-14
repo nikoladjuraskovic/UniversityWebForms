@@ -26,9 +26,20 @@ namespace WebControlsBase
 
                 using (con)
                 {
-                    con.Open();
+                    try
+                    {
 
-                    PopulateDropDownListWithBase(con);
+                        con.Open();
+
+                        PopulateDropDownListWithBase(con);
+
+                    } catch(Exception ex)
+                    {
+                        ErrorLabel.Text = "SERVER ERROR";
+                        ErrorLabel.ForeColor = System.Drawing.Color.Red;
+                        System.Diagnostics.Debug.WriteLine("Exception Message " + ex.Message);
+                        System.Diagnostics.Debug.WriteLine("Stack Trace " + ex.StackTrace);
+                    }
 
 
                 }
@@ -71,10 +82,7 @@ namespace WebControlsBase
             SqlCommand cmd = new SqlCommand(query, con);
 
             //izvor podataka listbox-a je DataReader
-
-
-            try
-            {
+     
                 SqlDataReader reader = cmd.ExecuteReader();
 
                 DropDownList1.DataSource = reader;
@@ -88,26 +96,33 @@ namespace WebControlsBase
 
 
                 reader.Close();
-            }
-            catch (Exception e)
-            {
-                System.Diagnostics.Debug.WriteLine("Exception Message " + e.Message);
-                System.Diagnostics.Debug.WriteLine("Stack Trace " + e.StackTrace);
-            }
+            
         }
         //event metod koji se pokrece ako se promeni izbor elementa
         protected void DropDownList1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (DropDownList1.SelectedItem != null)
-            {
-                //ispis izbor u label
-                Label1.Text = DropDownList1.SelectedItem.Value;
 
-                Label1.ForeColor = System.Drawing.Color.Green;
-            }
-            else
+            try
             {
-                Label1.Text = "Nothing Selected";
+
+                if (DropDownList1.SelectedItem != null)
+                {
+                    //ispis izbor u label
+                    Label1.Text = DropDownList1.SelectedItem.Value;
+
+                    Label1.ForeColor = System.Drawing.Color.Green;
+                }
+                else
+                {
+                    Label1.Text = "Nothing Selected";
+                }
+
+            } catch(Exception ex)
+            {
+                ErrorLabel.Text = "SERVER ERROR";
+                ErrorLabel.ForeColor = System.Drawing.Color.Red;
+                System.Diagnostics.Debug.WriteLine("Exception Message " + ex.Message);
+                System.Diagnostics.Debug.WriteLine("Stack Trace " + ex.StackTrace);
             }
         }
     }

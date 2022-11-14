@@ -91,7 +91,7 @@
         create new event i pritisnuti enter, tada se telo metoda samo napravi u backend-u(aspx.cs)
         --%>
     
-    <asp:Label ID="ErrorLabel" runat="server" Text=""></asp:Label>
+    <asp:Label ID="ErrorLabel" runat="server" Text="" Font-Bold="true"></asp:Label>
 
 
     <div>

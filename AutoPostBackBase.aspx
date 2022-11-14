@@ -66,6 +66,10 @@
 
     <h3>DropDownList With DataBase Data</h3>
 
+    <asp:Label ID="ErrorLabel" runat="server" Text="" Font-Bold="true"></asp:Label>
+
+    <br />
+
 
     <asp:DropDownList ID="DropDownList1"
     runat="server"

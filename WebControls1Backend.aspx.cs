@@ -24,6 +24,27 @@ namespace WebControlsBase
 
                     con.Open(); // otvaram ovde konekciju
 
+                    StudentsView0_Show(con);
+
+                    StudentsView1_Show(con);
+
+                    GridView2_Show(con);
+
+                    GridView3_Show(con);
+
+                    Chart1_Show(con);
+
+                    GridView4_Show(con);
+
+                    GridView5_Show(con);
+
+                    GridView6_Show(con);
+
+                    GridView7_Show(con);
+
+
+
+
                 } catch(Exception ex)
                 {
 
@@ -45,23 +66,7 @@ namespace WebControlsBase
                 metod za sortiranje.
                  */
 
-                StudentsView0_Show(con);
-
-                StudentsView1_Show(con);
-
-                GridView2_Show(con);
-
-                GridView3_Show(con);
-
-                Chart1_Show(con);
-
-                GridView4_Show(con);
-
-                GridView5_Show(con);
-
-                GridView6_Show(con);
-
-                GridView7_Show(con);
+                
 
             }
             //konekciju zatvaramo nakon poziva svih metoda
@@ -102,26 +107,16 @@ namespace WebControlsBase
             SqlCommand cmd = new SqlCommand(query, con);
 
 
-            try
-            {
+            SqlDataReader reader = cmd.ExecuteReader();
 
-                SqlDataReader reader = cmd.ExecuteReader();
+            StudentsView0.DataSource = reader; //izvor podataka je DataReader
 
-                StudentsView0.DataSource = reader; //izvor podataka je DataReader
-
-                StudentsView0.DataBind(); // vezi podatke za GridView kontrolu
+            StudentsView0.DataBind(); // vezi podatke za GridView kontrolu
 
 
 
-                reader.Close(); //zatvori reader, NEOPHODNO jer cemo ga koristiti nadalje
-
-            }
-            catch (Exception e)
-            {
-                System.Diagnostics.Debug.WriteLine("Exception Message " + e.Message);
-                System.Diagnostics.Debug.WriteLine("Stack Trace " + e.StackTrace);
-
-            }
+            reader.Close(); //zatvori reader, NEOPHODNO jer cemo ga koristiti nadalje
+          
 
 
 
@@ -158,6 +153,8 @@ namespace WebControlsBase
             reader.Close(); //zatvori reader, NEOPHODNO jer cemo ga koristiti nadalje
 
             } catch(Exception e){
+                ErrorLabel.Text = "SERVER ERROR";
+                ErrorLabel.ForeColor = System.Drawing.Color.Red;
                 System.Diagnostics.Debug.WriteLine("Exception Message " + e.Message);
                 System.Diagnostics.Debug.WriteLine("Stack Trace " + e.StackTrace);
 
@@ -170,30 +167,17 @@ namespace WebControlsBase
             adapter.SelectCommand = cmd;
 
             DataTable students = new DataTable();
-
-            try
-            {
-
-                adapter.Fill(students);
+          
+            adapter.Fill(students);
 
                 /*
                  * izvor podataka GridView kontrole je dataTable tj. podatke sada
                  * prikazujemo na veb stranici, tj. na strani klijenta
                  * */
-                StudentsView1.DataSource = students;
+            StudentsView1.DataSource = students;
 
-                StudentsView1.DataBind();
-
-            } catch(Exception e)
-            {
-
-                /*
-                 Izuzetke obradjujemo i ispisujemo i dalje na strani servera
-                 */
-                System.Diagnostics.Debug.WriteLine("Exception Message " + e.Message);
-                System.Diagnostics.Debug.WriteLine("Stack Trace " + e.StackTrace);
-
-            }
+            StudentsView1.DataBind();
+           
         }
 
 
@@ -201,8 +185,20 @@ namespace WebControlsBase
         {
             //na ovaj nacin omogucavam rad paging-a u kontroli.
 
-            StudentsView1.PageIndex = e.NewPageIndex;
-            StudentsView1.DataBind();
+            try
+            {
+
+
+                StudentsView1.PageIndex = e.NewPageIndex;
+                StudentsView1.DataBind();
+
+            } catch(Exception ex)
+            {
+                ErrorLabel.Text = "SERVER ERROR";
+                ErrorLabel.ForeColor = System.Drawing.Color.Red;
+                System.Diagnostics.Debug.WriteLine("Exception Message " + ex.Message);
+                System.Diagnostics.Debug.WriteLine("Stack Trace " + ex.StackTrace);
+            }
         }
 
         void GridView2_Show(SqlConnection con)
@@ -210,25 +206,16 @@ namespace WebControlsBase
             string query = "SELECT * FROM Students ORDER BY Year DESC";
 
             SqlCommand cmd = new SqlCommand(query, con);
+            
+            //sada mozemo koristiti reader jer GridView2 nema paging
 
-            try
-            {
-                //sada mozemo koristiti reader jer GridView2 nema paging
+            SqlDataReader reader = cmd.ExecuteReader();
 
-                SqlDataReader reader = cmd.ExecuteReader();
+            GridView2.DataSource = reader;
 
-                GridView2.DataSource = reader;
-
-                GridView2.DataBind();
-
-                
-
-                reader.Close();
-            } catch(Exception e)
-            {
-                System.Diagnostics.Debug.WriteLine("Exception Message " + e.Message);
-                System.Diagnostics.Debug.WriteLine("Stack Trace " + e.StackTrace);
-            }
+            GridView2.DataBind();
+               
+            reader.Close();            
 
         }
 
@@ -271,23 +258,16 @@ namespace WebControlsBase
                         "GROUP BY s.LastName;";
 
             SqlCommand cmd = new SqlCommand(query, con);
+           
 
-            try
-            {
+            SqlDataReader reader = cmd.ExecuteReader();
 
-                SqlDataReader reader = cmd.ExecuteReader();
+            GridView3.DataSource = reader;
 
-                GridView3.DataSource = reader;
+            GridView3.DataBind();
 
-                GridView3.DataBind();
-
-                reader.Close();
-
-            } catch(Exception e)
-            {
-                System.Diagnostics.Debug.WriteLine("Exception Message " + e.Message);
-                System.Diagnostics.Debug.WriteLine("Stack Trace " + e.StackTrace);
-            }
+            reader.Close();
+          
         }
 
         void Chart1_Show(SqlConnection con)
@@ -299,24 +279,17 @@ namespace WebControlsBase
                          "GROUP BY s.LastName;";
 
             SqlCommand cmd = new SqlCommand(query, con);
+            
 
-            try
-            {
+            SqlDataReader reader = cmd.ExecuteReader();
 
-                SqlDataReader reader = cmd.ExecuteReader();
+            Chart1.DataSource = reader;
 
-                Chart1.DataSource = reader;
+            Chart1.DataBind();
 
-                Chart1.DataBind();
+            reader.Close();
 
-                reader.Close();
-
-            }
-            catch (Exception e)
-            {
-                System.Diagnostics.Debug.WriteLine("Exception Message " + e.Message);
-                System.Diagnostics.Debug.WriteLine("Stack Trace " + e.StackTrace);
-            }
+           
         }
 
         void GridView4_Show(SqlConnection con)
@@ -324,24 +297,15 @@ namespace WebControlsBase
             string query = "SELECT * FROM Students";
 
             SqlCommand cmd = new SqlCommand(query, con);
+          
+            SqlDataReader reader = cmd.ExecuteReader();
 
-            try
-            {
-                SqlDataReader reader = cmd.ExecuteReader();
+            GridView4.DataSource = reader;
 
-                GridView4.DataSource = reader;
+            GridView4.DataBind();
 
-                GridView4.DataBind();
-
-                reader.Close();
-
-
-            }
-            catch (Exception e)
-            {
-                System.Diagnostics.Debug.WriteLine("Exception Message " + e.Message);
-                System.Diagnostics.Debug.WriteLine("Stack Trace " + e.StackTrace);
-            }
+            reader.Close();
+           
         }
 
         protected void GridView4_Sorting(object sender, GridViewSortEventArgs e)
@@ -380,24 +344,15 @@ namespace WebControlsBase
             string query = "SELECT StudentID, LastName FROM Students";
 
             SqlCommand cmd = new SqlCommand(query, con);
+            
+            SqlDataReader reader = cmd.ExecuteReader();
 
-            try
-            {
-                SqlDataReader reader = cmd.ExecuteReader();
+            GridView5.DataSource = reader;
 
-                GridView5.DataSource = reader;
+            GridView5.DataBind();
 
-                GridView5.DataBind();
-
-                reader.Close();
-
-
-            }
-            catch (Exception e)
-            {
-                System.Diagnostics.Debug.WriteLine("Exception Message " + e.Message);
-                System.Diagnostics.Debug.WriteLine("Stack Trace " + e.StackTrace);
-            }
+            reader.Close();
+         
 
         }
 
@@ -406,9 +361,7 @@ namespace WebControlsBase
             string query = "SELECT StudentID, Grade FROM Exams WHERE Grade IS NOT NULL";
 
             SqlCommand cmd = new SqlCommand(query, con);
-
-            try
-            {
+           
                 SqlDataReader reader = cmd.ExecuteReader();
 
                 GridView6.DataSource = reader;
@@ -416,13 +369,7 @@ namespace WebControlsBase
                 GridView6.DataBind();
 
                 reader.Close();
-
-
-            } catch(Exception e)
-            {
-                System.Diagnostics.Debug.WriteLine("Exception Message " + e.Message);
-                System.Diagnostics.Debug.WriteLine("Stack Trace " + e.StackTrace);
-            }
+            
         }
 
 
@@ -458,6 +405,8 @@ namespace WebControlsBase
 
             } catch(Exception e2)
             {
+                ErrorLabel.Text = "SERVER ERROR";
+                ErrorLabel.ForeColor = System.Drawing.Color.Red;
                 System.Diagnostics.Debug.WriteLine("Exception Message " + e2.Message);
                 System.Diagnostics.Debug.WriteLine("Stack Trace " + e2.StackTrace);
             }
@@ -470,24 +419,15 @@ namespace WebControlsBase
             string query = "SELECT * FROM Students;";
 
             SqlCommand cmd = new SqlCommand(query, con);
+          
+            SqlDataReader reader = cmd.ExecuteReader();
 
-            try
-            {
-                SqlDataReader reader = cmd.ExecuteReader();
+            GridView7.DataSource = reader;
 
-                GridView7.DataSource = reader;
+            GridView7.DataBind();
 
-                GridView7.DataBind();
-
-                reader.Close();
-
-
-            }
-            catch (Exception e)
-            {
-                System.Diagnostics.Debug.WriteLine("Exception Message " + e.Message);
-                System.Diagnostics.Debug.WriteLine("Stack Trace " + e.StackTrace);
-            }
+            reader.Close();
+           
 
         }
 

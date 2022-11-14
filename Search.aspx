@@ -23,7 +23,9 @@
         
         --%>
 
+    <asp:Label ID="ErrorLabel" runat="server" Text="" Font-Bold="true"></asp:Label>
 
+    <br />
 
     <asp:Panel ID="Panel1" runat="server" CssClass="form-group">
 

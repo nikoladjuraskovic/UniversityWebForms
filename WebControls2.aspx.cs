@@ -34,6 +34,9 @@ namespace WebControlsBase
                 }
                 catch (Exception ex)
                 {
+
+                    ErrorLabel.Text = "SERVER ERROR";
+                    ErrorLabel.ForeColor = System.Drawing.Color.Red;
                     System.Diagnostics.Debug.WriteLine("Exception Message " + ex.Message);
                     System.Diagnostics.Debug.WriteLine("Stack Trace " + ex.StackTrace);
                 }
@@ -69,24 +72,15 @@ namespace WebControlsBase
             string query = "SELECT LastName, Year, StudentID FROM Students";
 
             SqlCommand cmd = new SqlCommand(query, con);
+          
+            SqlDataReader reader = cmd.ExecuteReader();
 
-            try
-            {
-                SqlDataReader reader = cmd.ExecuteReader();
+            DetailsView1.DataSource = reader;
 
-                DetailsView1.DataSource = reader;
+            DetailsView1.DataBind();
 
-                DetailsView1.DataBind();
-
-
-
-                reader.Close();
-
-            } catch(Exception e)
-            {
-                System.Diagnostics.Debug.WriteLine("Exception Message " + e.Message);
-                System.Diagnostics.Debug.WriteLine("Stack Trace " + e.StackTrace);
-            }
+            reader.Close();
+           
 
         }
 
@@ -95,26 +89,15 @@ namespace WebControlsBase
             string query = "SELECT LastName, Year, StudentID FROM Students";
 
             SqlCommand cmd = new SqlCommand(query, con);
+         
+            SqlDataReader reader = cmd.ExecuteReader();
 
-            try
-            {
-                SqlDataReader reader = cmd.ExecuteReader();
+            GridView1.DataSource = reader;
 
-                GridView1.DataSource = reader;
+            GridView1.DataBind();
 
-                GridView1.DataBind();
-
-
-
-                reader.Close();
-
-            }
-            catch (Exception e)
-            {
-                System.Diagnostics.Debug.WriteLine("Exception Message " + e.Message);
-                System.Diagnostics.Debug.WriteLine("Stack Trace " + e.StackTrace);
-            }
-
+            reader.Close();
+           
         }
 
         void DetailsView2_Show(SqlConnection con)
@@ -130,8 +113,7 @@ namespace WebControlsBase
 
             SqlCommand cmd = new SqlCommand(query, con);
 
-            try
-            {
+        
 
                 /* ne mozemo da radimo preko DataReader-a jer FormView
                  * podrazumeva skrolovanje u oba smera kroz podatke,
@@ -147,13 +129,7 @@ namespace WebControlsBase
 
                 FormView1.DataSource = students;
 
-                FormView1.DataBind();
-
-            } catch(Exception e)
-            {
-                System.Diagnostics.Debug.WriteLine("Exception Message " + e.Message);
-                System.Diagnostics.Debug.WriteLine("Stack Trace " + e.StackTrace);
-            }
+                FormView1.DataBind();            
 
 
         }

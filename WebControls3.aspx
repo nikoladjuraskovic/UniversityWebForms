@@ -48,6 +48,7 @@
         Dokumentacija: https://learn.microsoft.com/en-us/dotnet/api/system.web.ui.webcontrols.listbox?view=netframework-4.8
         --%>
 
+    <asp:Label ID="ErrorLabel" runat="server" Text="" Font-Bold="true"></asp:Label>
 
     <div>
 
