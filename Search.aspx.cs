@@ -81,6 +81,7 @@ namespace WebControlsBase
 
         string GetConnectionString()
         {
+
             /*
              Konekcioni string koji se koristi je onaj kada ja baza pravljena
             rucno u Sql Server Management Studiju i razlikuje se od onog
