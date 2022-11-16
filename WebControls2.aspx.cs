@@ -139,5 +139,17 @@ namespace WebControlsBase
             //TODO
             //https://learn.microsoft.com/en-us/dotnet/api/system.web.ui.webcontrols.formview.pageindexchanging?view=netframework-4.8
         }
+
+        protected void SqlDataSource1_Selected(object sender, SqlDataSourceStatusEventArgs e)
+        {
+            if (e.Exception != null)
+            {
+                ErrorLabel.Text = "SERVER ERROR";
+                ErrorLabel.ForeColor = System.Drawing.Color.Red;
+                System.Diagnostics.Debug.WriteLine("Exception Message " + e.Exception.Message);
+                System.Diagnostics.Debug.WriteLine("Stack Trace " + e.Exception.StackTrace);
+                e.ExceptionHandled = true; // obavezno navesti inace izuzetak nece biti obradjen!
+            }
+        }
     }
 }

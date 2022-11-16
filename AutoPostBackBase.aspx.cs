@@ -20,6 +20,8 @@ namespace WebControlsBase
             kada stranica biva ucitavana prvi put tj. ne preko AutoPostBack.
             Ovo radimo da bi se izvrsio tacan prikaz izabranog podatka u
             Label
+            Docs: https://learn.microsoft.com/en-us/dotnet/api/system.web.ui.page.ispostback?source=recommendations&view=netframework-4.8
+
              */
             if (!IsPostBack) //isto sto i if(IsPostBack == false)
             {

@@ -61,7 +61,8 @@
             <asp:SqlDataSource ID="SqlDataSource1"
                 runat="server"
                  SelectCommand="SELECT LastName, Year, StudentID FROM Students"
-                  ConnectionString="Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=University;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False">
+                  ConnectionString="Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=University;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False"
+                 OnSelected="SqlDataSource1_Selected">
 
 
             </asp:SqlDataSource>
@@ -126,7 +127,8 @@
             <asp:SqlDataSource ID="DetailsSource1"
                 runat="server"
                 SelectCommand="SELECT * FROM Students WHERE StudentID = @StudentID"
-                ConnectionString="Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=University;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False">
+                ConnectionString="Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=University;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False"
+                OnSelected="SqlDataSource1_Selected">
                 <SelectParameters>
                     <asp:ControlParameter ControlID="GridView1"
                         Name="StudentID"
@@ -228,7 +230,7 @@
                 runat="server"
                 SelectCommand="SELECT * FROM Students" 
                 ConnectionString="Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=University;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False"
-                >
+                 OnSelected="SqlDataSource1_Selected">
 
             </asp:SqlDataSource>
 

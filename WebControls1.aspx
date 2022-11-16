@@ -90,12 +90,25 @@
             crtu tj. \ ,a ne dve jer se ovde ta jedna tumaci kao slash
             ,a NE kao specijalni karakter.
 
+            Izuzetke sqldatasource-a obradjujemo tako sto im dodamo event
+            OnSelected i u metodu koji se poziva obradjujemo izuzetak.
+            Implementirano je u aspx.cs(code-behind).
+            Izuzeci Svih sqldatasource objekata mogu biti obradjeni
+            istom metodom, sto smo ovde i uradili.
+
+            Link sa objasnjenjem:
+            https://social.msdn.microsoft.com/forums/en-US/d021df0a-a045-401b-99fd-d35b43ac448e/error-handling-with-sqldatasource?forum=aspdatasourcecontrols
+
         --%>
 
     <asp:sqldatasource id="StudentsSource1"
         selectcommand="SELECT * FROM Students"
         connectionstring="Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=University;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False" 
-        runat="server"/>
+        runat="server"
+          OnSelected="StudentsSource1_Selected"           
+         
+         
+         />
 
     <%--
         GridView - tabelarni prikaz podataka
@@ -194,7 +207,8 @@
      <asp:sqldatasource id="StudentsSource2"
         selectcommand="SELECT * FROM Students ORDER BY Year DESC"
         connectionstring="Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=University;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False" 
-        runat="server"/>
+        runat="server"
+          OnSelected="StudentsSource1_Selected"/>
 
     
     <asp:GridView ID="GridView2" 
@@ -222,7 +236,8 @@
                         WHERE e.Grade is not null
                         GROUP BY s.LastName"                       
         connectionstring="Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=University;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False" 
-        runat="server"/>
+        runat="server"
+         OnSelected="StudentsSource1_Selected"/>
 
     <asp:GridView ID="GridView3" 
         runat="server"
@@ -280,6 +295,8 @@
         da se imena vrednosti automatski dodeljuju tj. bice jednaka imenima kolona.
         Ako bismo sami kucali kolone, onda iza @ ide ime property-ja DataField elementa BoundField.
         Slicno vazi i za brisanje.
+        Zbog updatecommand i delete command izuzetke obradjujemo
+        preko onUpdated i onDeleted event-a.
         --%>
 
    
@@ -289,9 +306,12 @@
         updatecommand ="UPDATE Students SET
                         LastName=@LastName, FirstName=@FirstName, Year=@Year
                         WHERE StudentID=@StudentID"
+        OnUpdated="StudentsSource3_Updated"
         deletecommand="DELETE FROM Students
                         WHERE StudentID=@StudentID"
-        runat="server">
+        OnDeleted="StudentsSource3_Deleted"
+        runat="server"
+         OnSelected="StudentsSource1_Selected">
          
        
 
@@ -324,7 +344,8 @@
             <asp:SqlDataSource ID="StudentsSource4"
                 SelectCommand="SELECT StudentID, LastName FROM Students"
                 ConnectionString="Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=University;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False"
-                runat="server" />
+                runat="server"
+                 OnSelected="StudentsSource1_Selected"/>
 
         </div>
 
@@ -417,7 +438,8 @@
             <asp:SqlDataSource ID="ExamsSource1"
                 SelectCommand="SELECT StudentID, Grade FROM Exams WHERE Grade IS NOT NULL"
                 ConnectionString="Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=University;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False"
-                runat="server" />
+                runat="server"
+                 OnSelected="StudentsSource1_Selected"/>
 
 
         </div>
