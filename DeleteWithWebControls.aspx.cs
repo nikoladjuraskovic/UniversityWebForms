@@ -51,19 +51,38 @@ namespace WebControlsBase
             try
             {
 
-                
+
                 GridViewRow row = GridView1.SelectedRow;
-                //bojimo select u boju pozadina, kao da nema opcije select 
-                // jer je vec izabrano
-                row.Cells[0].ForeColor = System.Drawing.Color.SlateBlue;
 
-                //Cells[1] je pozicija id-a jer Cells[0] je kolona sa select
-                int id = Convert.ToInt32(row.Cells[1].Text.Trim());
+                if (row != null)
+                {
+                    //ako je korisnik kliknuo red tj postoji takav red
 
-                DeleteStudentParameter(con, id);
+                    //bojimo select u boju pozadina, kao da nema opcije select 
+                    // jer je vec izabrano
+                    row.Cells[0].ForeColor = System.Drawing.Color.SlateBlue;
 
-                /*Objasnjenje u InsertWithWebControls*/
-                Response.Redirect("~/DeleteWithWebControls", false);
+                    //Cells[1] je pozicija id-a jer Cells[0] je kolona sa select
+                    int id = Convert.ToInt32(row.Cells[1].Text.Trim());
+
+                    DeleteStudentParameter(con, id);
+
+                    /*Objasnjenje u InsertWithWebControls*/
+                    Response.Redirect("~/DeleteWithWebControls", false);
+
+                }
+                else
+                {
+                    //inace ispisi korisniku da nije dohvatio red i probaj opet
+                    SelectLabel.Visible = true;
+                }
+
+            } catch(NullReferenceException exnull)
+            {
+                //TODO ne radi obrada izuzetka, zato mora  preko if( != null)
+                SelectLabel.Visible = true;
+                System.Diagnostics.Debug.WriteLine("Exception Message: " + exnull.Message);
+                System.Diagnostics.Debug.WriteLine("Stack Trace: " + exnull.StackTrace);
 
             } catch(Exception ex)
             {

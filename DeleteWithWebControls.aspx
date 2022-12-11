@@ -44,5 +44,11 @@
          OnClick="Button1_Click"
          CssClass="btn btn-danger"/>
 
+    <asp:Label ID="SelectLabel" runat="server"
+        Text="Please Select a row." ForeColor="Red"
+         Visible="false" Font-Bold="true">
+
+    </asp:Label>
+
 
 </asp:Content>
