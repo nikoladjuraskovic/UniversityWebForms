@@ -78,7 +78,7 @@ namespace WebControlsBase
         {
             using (connection)
             {
-                connection.Open();
+                connection.Open(); 
 
                 SqlParameter p1 = new SqlParameter();
 
