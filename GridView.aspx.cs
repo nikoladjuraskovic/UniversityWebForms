@@ -112,12 +112,15 @@ namespace WebControlsBase
             
         }
 
+
+        //fja ispisuje prosecne ocene studenata u GridView sortirane po prosecnoj oceni
         void GridView5Fill(SqlConnection con)
         {
             string query = "SELECT s.LastName, AVG(e.Grade) as Average " +
                             "FROM Students s JOIN Exams e" +
                             " ON s.StudentID = e.StudentID " +
-                            " GROUP BY LastName";
+                            " GROUP BY LastName " +
+                            " ORDER BY AVG(e.Grade) DESC";
             
             SqlCommand cmd = new SqlCommand(query, con);
 
