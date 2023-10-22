@@ -158,11 +158,11 @@
 
 
 /* podatke ispusujemo ASPX view engine sintaksom(mesanje html-a i c#-a).
-ugradjena klasa table ima lepo formatiranu tabelu
+ugradjena css klasa table ima lepo formatiranu tabelu
 To podrazumeva navodjenjem c# promenljivih izmedju <%= i % > tagova.
 To sluzi da bismo prevodiocu razdvojili html od c#-a.
 Imamo for petlju koja mora imati { i } u svom telu,
-tako de je obavezno navesti i zatvorenu zagradu tj. }
+tako da je obavezno navesti i zatvorenu zagradu tj. }
 nakon reda tabele.
 Promenljive tj. samo jednu vrednost navodimo izmedju <%= i % > tagova,
 dok citave naredbe izmedju <% i % >. Procenat je razdvojen od znaka
@@ -178,7 +178,8 @@ ima petlja for jer se nalaze u njoj.
            
 
             <table class="table">
-                <%for (int i = 0; i < data.Count; i += 3) //pretpostavka je da je br elemenata deljiv sa 3
+                <%for (int i = 0; i < data.Count; i += 3) //pretpostavka je da je br elemenata deljiv sa 3, ispis je 3 elemenata po redu.
+                        // mogli smo i napisati i++ odnosno i=1 da se jedan element ispisuje po redu.
                     { %>
                 <tr>
                     <td><%= data[i] %></td>
@@ -240,15 +241,17 @@ ima petlja for jer se nalaze u njoj.
                 Postoji Table web controla ali ona nema datasourceid property
                 te nju nije moguce direktno povezati sa bazom. Mozda bismo
                 mogli da dohvatimo podatke iz baze u neku C# List-u(stringova
-                ili Tuple-ova ako ima vise kolona) i onda da
+                ili Tuple-ova ili objekata koji predstavljaju te podatke ako ima vise kolona) i onda da
                 ih ispisemo u asp Table slicno kao u HTML table. Mozete probati za domaci.
                 Tuple: https://learn.microsoft.com/en-us/dotnet/api/system.tuple?view=net-6.0
                 Mi cemo za tabelarni ispis koristiti posebne veb kontrole za rad
-                sa podacima iz baze iz kategorije Data: GridView, ...
+                sa podacima iz baze iz kategorije Data kao sto je GridView. Postoje i druge kontrole.
                 
                 --%>
 
             </div>
+
+        
 
     </div>
 

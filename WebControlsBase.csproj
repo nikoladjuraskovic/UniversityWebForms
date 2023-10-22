@@ -155,6 +155,7 @@
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="Content\bootstrap-theme.min.css.map" />
     <Content Include="Content\bootstrap-theme.css.map" />
+    <Content Include="GridView.aspx" />
     <Content Include="Images\aspnet-featured.jpg" />
     <Content Include="InsertWIthHtml\InsertWithHtml.aspx" />
     <Content Include="InsertWIthHtml\InsertWithHtml.css" />
@@ -293,6 +294,13 @@
     </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="GridView.aspx.cs">
+      <DependentUpon>GridView.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="GridView.aspx.designer.cs">
+      <DependentUpon>GridView.aspx</DependentUpon>
     </Compile>
     <Compile Include="InsertWIthHtml\InsertWithHtml.aspx.cs">
       <DependentUpon>InsertWithHtml.aspx</DependentUpon>

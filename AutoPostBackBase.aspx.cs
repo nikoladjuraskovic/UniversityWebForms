@@ -88,6 +88,7 @@ namespace WebControlsBase
                 SqlDataReader reader = cmd.ExecuteReader();
 
                 DropDownList1.DataSource = reader;
+                
 
                 //ovde kazemo listbox-u koje podatke hocemo da prikazemo
                 DropDownList1.DataValueField = "LastName";

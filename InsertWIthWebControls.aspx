@@ -49,7 +49,7 @@
 
         <asp:Label ID="Label1" runat="server" Text="First Name:" Font-Bold="true"></asp:Label>
 
-        <asp:TextBox ID="TextBoxFirstName" runat="server" CssClass="form-control" ></asp:TextBox>
+        <asp:TextBox ID="TextBoxFirstName" runat="server" CssClass="form-control"></asp:TextBox>
 
     </asp:Panel>
 

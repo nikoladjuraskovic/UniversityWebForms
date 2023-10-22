@@ -21,24 +21,9 @@ namespace WebControlsBase
 
         string GetConnectionString()
         {
-            /*
-             Konekcioni string koji se koristi je onaj kada ja baza pravljena
-            rucno u Sql Server Management Studiju i razlikuje se od onog
-            koji je koriscen kada smo bazu pravili koristeci Entity Framework
-            tj. preko model binding-a(kada smo pravili klasu Students itd.)
-            Novi konekcioni string od sada koristim a stari preko Entity Framework-a
-            ostavljam u komentaru ako ste kod kuce bazu pravili preko modela.
-            Bazu naravno mozete obrisati i napraviti istu novu u Sql-u
-            kao na bazama i onda koristiti novi konekcioni string.
-            Konekcioni string baze pravljenje SQL-om ima Catalog=University.
-            Konekcioni string baze pravljenje Entity Framework-om ima Catalog=University.Models.SchoolContext.
-            Ostalo je isto.
-            Mozda je najbolje za vas imati bazu napravljenu SQL-om i da koristite konekcioni
-            string koji se ovde koristi.
-             */
-
+            
             return "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=University;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
-            //return "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=University.Models.SchoolContext;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
+           
         }
 
 

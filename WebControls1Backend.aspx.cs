@@ -101,7 +101,6 @@ namespace WebControlsBase
         void StudentsView0_Show(SqlConnection con)
         {
 
-
             string query = "SELECT * FROM Students;";
 
             SqlCommand cmd = new SqlCommand(query, con);
@@ -113,12 +112,8 @@ namespace WebControlsBase
 
             StudentsView0.DataBind(); // vezi podatke za GridView kontrolu
 
-
-
             reader.Close(); //zatvori reader, NEOPHODNO jer cemo ga koristiti nadalje
           
-
-
 
         }
 
