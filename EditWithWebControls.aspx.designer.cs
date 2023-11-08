@@ -24,15 +24,6 @@ namespace WebControlsBase
         protected global::System.Web.UI.WebControls.Label ErrorLabel;
 
         /// <summary>
-        /// GridView1Source control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.SqlDataSource GridView1Source;
-
-        /// <summary>
         /// GridView1 control.
         /// </summary>
         /// <remarks>

@@ -5,3 +5,7 @@
 .margine {
     margin-left: 30px;
 }
+
+.textbox-warning {
+    outline: 1px solid red;
+}

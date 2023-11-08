@@ -161,6 +161,7 @@
     <Content Include="InsertWIthHtml\InsertWithHtml.css" />
     <Content Include="InsertWIthHtml\InsertWithHtml.js" />
     <Content Include="InsertWIthWebControls.aspx" />
+    <Content Include="InsertWIthWebControls.css" />
     <Content Include="RangeValidator.aspx" />
     <Content Include="RequiredFieldValidator.aspx" />
     <Content Include="Search.aspx" />

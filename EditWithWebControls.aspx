@@ -14,22 +14,49 @@
     <br />
 
 
-    <link href="EditWithWebControls.css" rel="stylesheet" />
+    <!-- CSS only -->
+    <%--
+
+        Stavljajte CSS kod u poseban file. To ce se traziti na maturskom ispitu!
+    <style>
+
+        .textbox-warning{
+            outline: 1px solid red;
+        }
+
+       
+
+    </style>
+
+    --%>
+
+    <%--veza asp web forme sa css fajlom. Href je samo ime fajla jer su .aspx stranica i .css fajl u istom folderu(folderu projekta)--%>
+    <link href="EditWithWebControls.css" rel="stylesheet" runat="server" />
+
+    <%--OPREZ! Ako se desi da vam se ne refreshuje css stranice iako ste promenili css kod, onda mozete postupiti prema sledecem:
+        
+        https://stackoverflow.com/questions/1239907/can-i-force-a-refresh-of-my-stylesheet-file
+        --%>
+
 
     <h2>Edit with ASP Web Controls</h2>
     <!--Stranica menja postojeceg studenta u bazi i vrsi ispis u GridView-->
 
-    <asp:Label ID="ErrorLabel" runat="server" Text="" Font-Bold="true"></asp:Label>
+    <asp:Label ID="ErrorLabel" runat="server" Text="" Font-Bold="true" ForeColor="Red"></asp:Label>
 
+
+    <%-- II nacin dohvatanja podataka preko sqlDataSource, dodati u GridView DataSourceID
     <asp:sqldatasource id="GridView1Source"
         selectcommand="SELECT StudentID, LastName, FirstName, Year FROM Students"
         connectionstring="Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=University;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False" 
         runat="server"/>
+
+        --%>
+
     <%--CssClass omogucava lep ispis GridView, doduse nije identicna kao kada bismo
         obicnoj html tabeli dali da pripada css klasi table
         --%>
-    <asp:GridView ID="GridView1" runat="server"
-        DataSourceID="GridView1Source"
+    <asp:GridView ID="GridView1" runat="server"       
         EmptyDataText="No Data"
          AutoGenerateColumns="true"
          CssClass="table"

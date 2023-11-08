@@ -15,6 +15,11 @@
     <br />
     <br />
     <!-- CSS only -->
+
+    <%--
+
+        Stavljajte CSS kod u poseban file. To ce se traziti na maturskom ispitu!
+
     <style>
 
         .textbox-warning{
@@ -24,6 +29,11 @@
        
 
     </style>
+
+        --%>
+
+    <%--veza asp web forme sa css fajlom. Href je samo ime fajla jer su .aspx stranica i .css fajl u istom folderu(folderu projekta)--%>
+    <link href="InsertWIthWebControls.css" rel="stylesheet" runat="server" />
 
     <h2>Insert Student With ASP Web Controls</h2>
     <!--Stranica ubacuje studenta u bazu i vrsi ispis u GridView-->
@@ -41,7 +51,7 @@
         jer on vec u sebi ima neku bootstrap biblioteku!
         -->
 
-    <asp:Label ID="ErrorLabel" runat="server" Text="" Font-Bold="true"></asp:Label>
+    <asp:Label ID="ErrorLabel" runat="server" Text="" Font-Bold="true" ForeColor="Red"></asp:Label>
 
     <h3>Insert Student</h3>
 
@@ -170,15 +180,20 @@
 
     <h3>Students in Database</h3>
 
+    <%--
+        <%--II nacin dohvatanja podataka preko sqlDataSource kontrole, dodati u GridView DataSourceID
     <asp:sqldatasource id="GridView1Source"
         selectcommand="SELECT * FROM Students"
         connectionstring="Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=University;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False" 
         runat="server"/>
+
+        --%>
+    
     <%--CssClass omogucava lep ispis GridView, doduse nije identicna kao kada bismo
         obicnoj html tabeli dali da pripada css klasi table
         --%>
     <asp:GridView ID="GridView1" runat="server"
-        DataSourceID="GridView1Source"
+        
         EmptyDataText="No Data"
         EmptyDataRowStyle-ForeColor="Red"
          AutoGenerateColumns="true"

@@ -12,7 +12,28 @@ namespace WebControlsBase
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            SqlConnection con = new SqlConnection(GetConnectionString());
 
+
+            /*NAPOMENA: Mesto otvaranje i zatvaranja konekcije moze biti razlicito u zavisnosti kako kucate kod.
+             Bitno je da kod koji koristi bazu podataka ima otvorenu konekciju i da se ona posle zatvori.
+            Sve delove koda koji mogu ispaliti izuzetak obavezno obraditi*/
+
+            try
+            {
+                using (con)
+                {
+                    con.Open();
+
+                    GridViewFill(con);
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorLabel.Text = "SERVER ERROR";
+                System.Diagnostics.Debug.WriteLine("Exception Message: " + ex.Message);
+                System.Diagnostics.Debug.WriteLine("Stack Trace: " + ex.StackTrace);
+            }
         }
 
         protected void Button1_Click(object sender, EventArgs e)
@@ -136,8 +157,7 @@ namespace WebControlsBase
 
             } catch(Exception ex)
             {
-                ErrorLabel.Text = "SERVER ERROR";
-                ErrorLabel.ForeColor = System.Drawing.Color.Red;               
+                ErrorLabel.Text = "SERVER ERROR";                         
                 System.Diagnostics.Debug.WriteLine("Exception Message: " + ex.Message);
                 System.Diagnostics.Debug.WriteLine("Stack Trace: " + ex.StackTrace);
             }
@@ -152,9 +172,7 @@ namespace WebControlsBase
 
         void UpdateStudentParameter(SqlConnection connection, int year, int id, string lastName, string firstName)
         {
-            try
-            {
-
+         
                 using (connection)
                 {
                     connection.Open();
@@ -190,13 +208,22 @@ namespace WebControlsBase
 
                 }
 
-            } catch(Exception e)
-            {
-                ErrorLabel.Text = "SERVER ERROR";
-                ErrorLabel.ForeColor = System.Drawing.Color.Red;
-                System.Diagnostics.Debug.WriteLine("Exception Message: " + e.Message);
-                System.Diagnostics.Debug.WriteLine("Stack Trace: " + e.StackTrace);
-            }
+            
+        }
+
+        void GridViewFill(SqlConnection con)
+        {
+            string query = "SELECT * FROM Students";
+
+            SqlCommand cmd = new SqlCommand(query, con);
+
+            SqlDataReader reader = cmd.ExecuteReader();
+
+            GridView1.DataSource = reader;
+
+            GridView1.DataBind();
+
+            reader.Close();
         }
     }
 }
